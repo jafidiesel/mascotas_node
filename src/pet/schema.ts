@@ -6,6 +6,7 @@ export interface IPet extends mongoose.Document {
   name: string;
   birthDate: Date;
   description: string;
+  nftId: string;
   user: mongoose.Schema.Types.ObjectId;
   updated: Number;
   created: Number;
@@ -15,7 +16,7 @@ export interface IPet extends mongoose.Document {
 /**
  * Esquema de Mascotas
  */
-export let PetSchema = new mongoose.Schema({
+export const PetSchema = new mongoose.Schema({
   name: {
     type: String,
     default: "",
@@ -31,6 +32,11 @@ export let PetSchema = new mongoose.Schema({
     type: String,
     default: "",
     trim: true
+  },
+  nftId: {
+    type: String,
+    default: "",
+    trim: false
   },
   user: {
     type: mongoose.Schema.Types.ObjectId,
@@ -60,4 +66,4 @@ PetSchema.pre("save", function (this: IPet, next) {
   next();
 });
 
-export let Pet = mongoose.model<IPet>("Pet", PetSchema);
+export const Pet = mongoose.model<IPet>("Pet", PetSchema);

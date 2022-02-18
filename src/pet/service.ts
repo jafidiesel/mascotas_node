@@ -45,6 +45,10 @@ async function validateUpdate(body: IPet): Promise<IPet> {
     result.messages.push({ path: "description", message: "Hasta 2014 caracteres solamente." });
   }
 
+  if (!body.nftId && body.description.length > 100) {
+    result.messages.push({ path: "nftId", message: "Hasta 100 caracteres solamente." });
+  }
+
   if (result.messages.length > 0) {
     return Promise.reject(result);
   }
