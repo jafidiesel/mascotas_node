@@ -79,6 +79,9 @@ export async function update(petId: string, userId: string, body: IPet): Promise
     if (validBody.birthDate) {
       current.birthDate = validBody.birthDate;
     }
+    if (validBody.nftId) {
+      current.nftId = validBody.nftId;
+    }
 
     await current.save();
     return Promise.resolve(current);

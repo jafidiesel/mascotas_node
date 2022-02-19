@@ -52,7 +52,8 @@ async function findByCurrentUser(req: ISessionRequest, res: express.Response) {
       id: u.id,
       name: u.name,
       description: u.description,
-      birthDate: u.birthDate
+      birthDate: u.birthDate,
+      nftId: u.nftId
     };
   }));
 }
@@ -114,7 +115,8 @@ async function readById(req: ISessionRequest, res: express.Response) {
     id: result.id,
     name: result.name,
     description: result.description,
-    birthDate: result.birthDate
+    birthDate: result.birthDate,
+    nftId: result.nftId
   });
 }
 
