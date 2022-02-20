@@ -49,6 +49,14 @@ async function validateUpdate(body: IPet): Promise<IPet> {
     result.messages.push({ path: "nftId", message: "Hasta 100 caracteres solamente." });
   }
 
+  if (!body.nftId && body.description.length > 100) {
+    result.messages.push({ path: "nftId", message: "Hasta 100 caracteres solamente." });
+  }
+
+  if (!body.nftId && body.description.length > 100) {
+    result.messages.push({ path: "nftId", message: "Hasta 100 caracteres solamente." });
+  }
+
   if (result.messages.length > 0) {
     return Promise.reject(result);
   }
@@ -81,6 +89,12 @@ export async function update(petId: string, userId: string, body: IPet): Promise
     }
     if (validBody.nftId) {
       current.nftId = validBody.nftId;
+    }
+    if (validBody.ownerName) {
+      current.ownerName = validBody.ownerName;
+    }
+    if (validBody.ownerId) {
+      current.ownerId = validBody.ownerId;
     }
 
     await current.save();

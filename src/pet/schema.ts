@@ -7,6 +7,8 @@ export interface IPet extends mongoose.Document {
   birthDate: Date;
   description: string;
   nftId: string;
+  ownerName: string;
+  ownerId: string;
   user: mongoose.Schema.Types.ObjectId;
   updated: Number;
   created: Number;
@@ -34,6 +36,16 @@ export const PetSchema = new mongoose.Schema({
     trim: true
   },
   nftId: {
+    type: String,
+    default: "",
+    trim: false
+  },
+  ownerName: {
+    type: String,
+    default: "",
+    trim: false
+  },
+  ownerId: {
     type: String,
     default: "",
     trim: false

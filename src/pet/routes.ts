@@ -53,7 +53,9 @@ async function findByCurrentUser(req: ISessionRequest, res: express.Response) {
       name: u.name,
       description: u.description,
       birthDate: u.birthDate,
-      nftId: u.nftId
+      nftId: u.nftId,
+      ownerName: u.ownerName,
+      ownerId: u.ownerId
     };
   }));
 }
@@ -116,7 +118,9 @@ async function readById(req: ISessionRequest, res: express.Response) {
     name: result.name,
     description: result.description,
     birthDate: result.birthDate,
-    nftId: result.nftId
+    nftId: result.nftId,
+    ownerName: result.ownerName,
+    ownerId: result.ownerId
   });
 }
 
@@ -147,7 +151,9 @@ async function updateById(req: ISessionRequest, res: express.Response) {
     id: result.id,
     name: result.name,
     description: result.description,
-    birthDate: result.birthDate
+    birthDate: result.birthDate,
+    ownerName: result.ownerName,
+    ownerId: result.ownerId
   });
 }
 
