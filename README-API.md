@@ -10,6 +10,7 @@ Microservicio de Autentificación
 - [Mascotas](#mascotas)
 	- [Actualizar Mascota](#actualizar-mascota)
 	- [Buscar Mascota](#buscar-mascota)
+	- [Buscar Mascota por nftId](#buscar-mascota-por-nftid)
 	- [Crear Mascota](#crear-mascota)
 	- [Eliminar Mascota](#eliminar-mascota)
 	- [Listar Mascota](#listar-mascota)
@@ -176,12 +177,15 @@ HTTP/1.1 500 Internal Server Error
 Mascota
 
 ```
-{
-  "id": "Id de mascota",
-  "name": "Nombre de la mascota",
-  "description": "Description de la mascota",
-  "birthDate": date (DD/MM/YYYY),
-}
+   {
+     "id": "Id de mascota",
+     "name": "Nombre de la mascota",
+     "description": "Description de la mascota",
+     "birthDate": date (DD/MM/YYYY),
+		"nftId": "id del NFT",
+		"ownerName": "Nombre del dueño de la mascota",
+		"ownerId": "documento identificatorio de la persona"
+   }
 ```
 Header Autorización
 
@@ -195,12 +199,15 @@ Authorization=bearer {token}
 Mascota
 
 ```
-{
-  "id": "Id de mascota",
-  "name": "Nombre de la mascota",
-  "description": "Descripción de la mascota",
-  "birthDate": date (DD/MM/YYYY),
-}
+   {
+     "id": "Id de mascota",
+     "name": "Nombre de la mascota",
+     "description": "Descripción de la mascota",
+     "birthDate": date (DD/MM/YYYY),
+		"nftId": "id del NFT",
+		"ownerName": "Nombre del dueño de la mascota",
+		"ownerId": "documento identificatorio de la persona"
+   }
 ```
 
 
@@ -256,12 +263,79 @@ Authorization=bearer {token}
 Mascota
 
 ```
+   {
+     "id": "Id de mascota",
+     "name": "Nombre de la mascota",
+     "description": "Descripción de la mascota",
+     "birthDate": date (DD/MM/YYYY),
+		"nftId": "id del NFT",
+		"ownerName": "Nombre del dueño de la mascota",
+		"ownerId": "documento identificatorio de la persona"
+   }
+```
+
+
+### Error Response
+
+401 Unauthorized
+
+```
+HTTP/1.1 401 Unauthorized
+```
+400 Bad Request
+
+```
+HTTP/1.1 400 Bad Request
 {
-  "id": "Id de mascota",
-  "name": "Nombre de la mascota",
-  "description": "Descripción de la mascota",
-  "birthDate": date (DD/MM/YYYY),
+   "messages" : [
+     {
+       "path" : "{Nombre de la propiedad}",
+       "message" : "{Motivo del error}"
+     },
+     ...
+  ]
 }
+```
+500 Server Error
+
+```
+HTTP/1.1 500 Internal Server Error
+{
+   "error" : "Not Found"
+}
+```
+## <a name='buscar-mascota-por-nftid'></a> Buscar Mascota por nftId
+[Back to top](#top)
+
+<p>Busca una mascota por nftId</p>
+
+	GET /v1/pet/nft/:nftId
+
+
+
+### Examples
+
+Header Autorización
+
+```
+Authorization=bearer {token}
+```
+
+
+### Success Response
+
+Mascota
+
+```
+   {
+     "id": "Id de mascota",
+     "name": "Nombre de la mascota",
+     "description": "Descripción de la mascota",
+     "birthDate": date (DD/MM/YYYY),
+		"nftId": "id del NFT",
+		"ownerName": "Nombre del dueño de la mascota",
+		"ownerId": "documento identificatorio de la persona"
+   }
 ```
 
 
@@ -324,12 +398,15 @@ Authorization=bearer {token}
 Mascota
 
 ```
-{
-  "id": "Id de mascota",
-  "name": "Nombre de la mascota",
-  "description": "Descripción de la mascota",
-  "birthDate": date (DD/MM/YYYY),
-}
+   {
+     "id": "Id de mascota",
+     "name": "Nombre de la mascota",
+     "description": "Descripción de la mascota",
+     "birthDate": date (DD/MM/YYYY),
+		"nftId": "id del NFT",
+		"ownerName": "Nombre del dueño de la mascota",
+		"ownerId": "documento identificatorio de la persona"
+   }
 ```
 
 
@@ -427,14 +504,17 @@ Authorization=bearer {token}
 Mascota
 
 ```
-[
-  {
-    "id": "Id de mascota"
-    "name": "Nombre de la mascota",
-    "description": "Descripción de la mascota",
-    "birthDate": date (DD/MM/YYYY),
-  }, ...
-]
+ [
+   {
+     "id": "Id de mascota"
+     "name": "Nombre de la mascota",
+     "description": "Descripción de la mascota",
+     "birthDate": date (DD/MM/YYYY),
+		"nftId": "id del NFT",
+		"ownerName": "Nombre del dueño de la mascota",
+		"ownerId": "documento identificatorio de la persona"
+   }, ...
+ ]
 ```
 Response
 

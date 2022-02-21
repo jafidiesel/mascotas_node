@@ -32,6 +32,21 @@ export async function findById(userId: string, petId: string): Promise<IPet> {
   }
 }
 
+export async function findByNFTId(userId: string, nftId: string): Promise<IPet> {
+	try {
+	  const result = await Pet.findOne({
+		nftId: nftId,
+		enabled: true
+	  }).exec();
+	  if (!result) {
+		throw error.ERROR_NOT_FOUND;
+	  }
+	  return Promise.resolve(result);
+	} catch (err) {
+	  return Promise.reject(err);
+	}
+  }
+
 async function validateUpdate(body: IPet): Promise<IPet> {
   const result: error.ValidationErrorMessage = {
     messages: []
@@ -45,16 +60,16 @@ async function validateUpdate(body: IPet): Promise<IPet> {
     result.messages.push({ path: "description", message: "Hasta 2014 caracteres solamente." });
   }
 
-  if (!body.nftId && body.description.length > 100) {
+  if (!body.nftId && body.nftId.length > 100) {
     result.messages.push({ path: "nftId", message: "Hasta 100 caracteres solamente." });
   }
 
-  if (!body.nftId && body.description.length > 100) {
-    result.messages.push({ path: "nftId", message: "Hasta 100 caracteres solamente." });
+  if (!body.nftId && body.ownerName.length > 100) {
+    result.messages.push({ path: "ownerName", message: "Hasta 100 caracteres solamente." });
   }
 
-  if (!body.nftId && body.description.length > 100) {
-    result.messages.push({ path: "nftId", message: "Hasta 100 caracteres solamente." });
+  if (!body.ownerId && body.ownerId.length > 100) {
+    result.messages.push({ path: "ownerId", message: "Hasta 100 caracteres solamente." });
   }
 
   if (result.messages.length > 0) {

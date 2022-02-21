@@ -21,6 +21,9 @@ export function initModule(app: express.Express) {
     .get(onlyLoggedIn, readById)
     .post(onlyLoggedIn, updateById)
     .delete(onlyLoggedIn, removeById);
+  app
+	.route("/v1/pet/nft/:nftId")
+	.get(onlyLoggedIn, readByNFTId);
 }
 
 
@@ -38,6 +41,9 @@ export function initModule(app: express.Express) {
  *      "name": "Nombre de la mascota",
  *      "description": "Descripción de la mascota",
  *      "birthDate": date (DD/MM/YYYY),
+ * 		"nftId": "id del NFT",
+ * 		"ownerName": "Nombre del dueño de la mascota",
+ * 		"ownerId": "documento identificatorio de la persona"
  *    }, ...
  *  ]
  *
@@ -69,6 +75,9 @@ async function findByCurrentUser(req: ISessionRequest, res: express.Response) {
  *      "name": "Nombre de la mascota",
  *      "description": "Descripción de la mascota",
  *      "birthDate": date (DD/MM/YYYY),
+ *		"nftId": "id del NFT",
+ * 		"ownerName": "Nombre del dueño de la mascota",
+ * 		"ownerId": "documento identificatorio de la persona"
  *    }
  */
 
@@ -125,6 +134,32 @@ async function readById(req: ISessionRequest, res: express.Response) {
 }
 
 /**
+ * @api {get} /v1/pet/nft/:nftId Buscar Mascota por nftId
+ * @apiName Buscar Mascota por nftId
+ * @apiGroup Mascotas
+ *
+ * @apiDescription Busca una mascota por nftId
+ *
+ * @apiUse IMascotaResponse
+ *
+ * @apiUse AuthHeader
+ * @apiUse ParamValidationErrors
+ * @apiUse OtherErrors
+ */
+ async function readByNFTId(req: ISessionRequest, res: express.Response) {
+	const result = await service.findByNFTId(req.user.user_id, req.params.nftId);
+	res.json({
+	  id: result.id,
+	  name: result.name,
+	  description: result.description,
+	  birthDate: result.birthDate,
+	  nftId: result.nftId,
+	  ownerName: result.ownerName,
+	  ownerId: result.ownerId
+	});
+  }
+
+/**
  * @api {post} /v1/pet/:petId Actualizar Mascota
  * @apiName Actualizar Mascota
  * @apiGroup Mascotas
@@ -137,6 +172,9 @@ async function readById(req: ISessionRequest, res: express.Response) {
  *      "name": "Nombre de la mascota",
  *      "description": "Description de la mascota",
  *      "birthDate": date (DD/MM/YYYY),
+ * 		"nftId": "id del NFT",
+ * 		"ownerName": "Nombre del dueño de la mascota",
+ * 		"ownerId": "documento identificatorio de la persona"
  *    }
  *
  * @apiUse IMascotaResponse
